@@ -1,0 +1,20 @@
+{{- if default "" .Values.minecraftServer.prometheus.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ template "minecraft.fullname" . }}-prometheus"
+  labels:
+    {{- include "minecraft.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.minecraftServer.prometheus.serviceType }}
+  ports:
+  - name: prometheus
+    port: {{ .Values.minecraftServer.prometheus.port }}
+    {{- if .Values.minecraftServer.prometheus.nodePort }}
+    nodePort: {{ .Values.minecraftServer.prometheus.nodePort }}
+    {{- end }}    
+    targetPort: prometheus
+    protocol: TCP
+  selector:
+    {{- include "minecraft.selectorLabels" . | nindent 4 }}
+{{- end }}
