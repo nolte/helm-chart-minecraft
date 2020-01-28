@@ -68,17 +68,12 @@ jobs:
           name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
           path: '.chartdata'
 
-      - name: debug files
+      - name: copy chart archive
         run: |
-          ls -all
-          pwd
-          ls -all .chartinfo
-          cat .chartinfo/Chart.yaml
           mv .chartdata/**.tgz charts/          
 
       - name: Commit files
         run: |
-          ls -all
           rm -rf .chartinfo
           rm -rf .chartdata
           git config --local user.email "action@github.com"
