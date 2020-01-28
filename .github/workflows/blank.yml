@@ -27,21 +27,11 @@ jobs:
           path: "/github"      
       - name: Run package
         uses: nolte/github-action/helm/build@master
-      - name: load chart facts
-        uses: nolte/github-action/helm/set_facts@master
-        id: chart_facts
-        with:
-          path: "Chart.yaml"        
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          path: "dist/${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz"
-          name: "${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz"
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          path: "Chart.yaml"
-          name: "Chart.yaml"
+          path: "dist/**.tgz"
+          name: "dist"
   helmdeploy:
     name: Publish Chart
     runs-on: ubuntu-latest
@@ -55,24 +45,11 @@ jobs:
           repository: "nolte/helm-charts"
       - uses: actions/download-artifact@v1
         with:
-          path: ".chartinfo"
-          name: "Chart.yaml"
-
-      - name: load chart facts
-        uses: nolte/github-action/helm/set_facts@master
-        id: chart_facts              
-        with:
-          path: ".chartinfo/Chart.yaml"
-
-      - uses: actions/download-artifact@v1
-        with:
-          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
+          name: "dist"
           path: '.chartdata'
-
       - name: copy chart archive
         run: |
-          mv .chartdata/**.tgz charts/          
-
+          mv .chartdata/**.tgz charts/
       - name: Commit files
         run: |
           rm -rf .chartinfo
@@ -82,10 +59,3 @@ jobs:
           git add .
           git commit -m "Add changes" -a
           git push origin master
-      #- name: Push changes
-      #  uses: nolte/github-push-action@feature/debugging
-      #  env: 
-      #    GITHUB_ACTOR: nolte
-      #  with:
-      #    github_token: ${{ secrets.CR_TOKEN }}
-      #    repository: "nolte/helm-charts"
