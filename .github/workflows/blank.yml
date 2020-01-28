@@ -46,7 +46,7 @@ jobs:
           path: 'charts/charts/'
       - name: Commit files
         run: |
-          cd /github/workspace/charts
+          ls -all
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
