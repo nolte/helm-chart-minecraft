@@ -12,7 +12,7 @@ spec:
     port: {{ .Values.minecraftServer.rcon.port }}
     {{- if .Values.minecraftServer.rcon.nodePort }}
     nodePort: {{ .Values.minecraftServer.rcon.nodePort }}
-    {{- end }}    
+    {{- end }}
     targetPort: rcon
     protocol: TCP
   selector:

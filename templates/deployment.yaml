@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "minecraft.selectorLabels" . | nindent 6 }}    
+      {{- include "minecraft.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
@@ -25,7 +25,7 @@ spec:
 {{ toYaml .Values.resources | indent 10 }}
         readinessProbe:
           exec:
-            command: 
+            command:
 {{ toYaml .Values.readinessProbe.command | indent 14 }}
           initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
@@ -115,8 +115,8 @@ spec:
         - name: SEED
           value: {{ default "" .Values.minecraftServer.levelSeed | quote }}
         - name: SNOOPER_ENABLED
-          value: {{ default "true" .Values.minecraftServer.snooperEnabled | quote }}          
-        
+          value: {{ default "true" .Values.minecraftServer.snooperEnabled | quote }}
+
         - name: MODE
           value: {{ .Values.minecraftServer.gameMode | quote }}
         - name: MOTD
@@ -185,7 +185,7 @@ spec:
         - name: rcon
           containerPort: {{ .Values.minecraftServer.rcon.port }}
           protocol: TCP
-        {{- end }}        
+        {{- end }}
         volumeMounts:
         - name: datadir
           mountPath: /data

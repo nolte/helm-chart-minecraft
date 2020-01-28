@@ -12,7 +12,7 @@ spec:
     port: {{ .Values.minecraftServer.prometheus.port }}
     {{- if .Values.minecraftServer.prometheus.nodePort }}
     nodePort: {{ .Values.minecraftServer.prometheus.nodePort }}
-    {{- end }}    
+    {{- end }}
     targetPort: prometheus
     protocol: TCP
   selector:
