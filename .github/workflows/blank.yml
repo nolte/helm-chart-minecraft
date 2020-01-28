@@ -81,8 +81,8 @@ jobs:
           ls -all
           rm -rf .chartinfo
           rm -rf .chartdata
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add .
           git commit -m "Add changes" -a
       - name: Push changes
