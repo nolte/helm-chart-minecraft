@@ -56,17 +56,26 @@ jobs:
         with:
           path: ".chartinfo"
           name: "Chart.yaml"
-      - name: debug files
-        run: |
-          ls -all
-          pwd
-          ls -all .chartinfo
-          cat .chartinfo/Chart.yaml         
+
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
         id: chart_facts              
         with:
           path: ".chartinfo/Chart.yaml"
+
+      - uses: actions/download-artifact@v1
+        with:
+          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
+          path: '.chartdata'
+
+      - name: debug files
+        run: |
+          ls -all
+          pwd
+          ls -all .chartinfo
+          cat .chartinfo/Chart.yaml
+          mv .chartdata/**.tgz charts/          
+
       - uses: actions/download-artifact@v1
         with:
           name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
@@ -75,6 +84,7 @@ jobs:
         run: |
           ls -all
           rm -rf .chartinfo
+          rm -rf .chartdata
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
