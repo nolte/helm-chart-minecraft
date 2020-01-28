@@ -25,11 +25,10 @@ jobs:
       - name: Run package
         uses: nolte/github-action/helm/build@master
       - name: Install (Ubuntu)
-        if: matrix.config.os == 'ubuntu'
         run: echo ::set-env name=VERSION::"1.1.1"  
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          pattern: "dist/*.tgz"
-          name: dist 
+          path: "dist/minecraft-${env.VERSION}.tgz"
+          name: minecraft-${env.VERSION}.tgz
           
