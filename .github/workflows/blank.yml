@@ -25,11 +25,11 @@ jobs:
         uses: nolte/github-action/helm/testing@master      
       - name: Run package
         uses: nolte/github-action/helm/build@master
-      - name: Define Version Env Var
-        run: echo ::set-env name=VERSION::"1.1.1"
+      - name: Run package
+        uses: nolte/github-action/helm/set_facts@master
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          path: "dist/minecraft-${{ env.VERSION }}.tgz"
-          name: minecraft-${{ env.VERSION }}.tgz
+          path: "dist/${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz"
+          name: ${{ env.CHARTNAME }}-${{ env.VERSION }}.tgz
           
