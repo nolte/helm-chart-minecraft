@@ -20,7 +20,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-            fetch-depth: 1
+          fetch-depth: 1
+          path: 'src'
       - name: Run tests
         uses: nolte/github-action/helm/testing@master      
       - name: Run package
@@ -37,8 +38,8 @@ jobs:
         with:
           fetch-depth: 1
           repository: "nolte/helm-charts"     
-          path: '../charts'
+          path: 'charts'
       - uses: actions/download-artifact@v1
         with:
           name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
-          path: '../charts/'
+          path: '/charts/'
