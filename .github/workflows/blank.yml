@@ -47,8 +47,8 @@ jobs:
           repository: "nolte/helm-charts"     
       - uses: actions/download-artifact@v1
         with:
-          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
-          path: 'charts/${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz'
+          name: ${{ job.helmbuild.steps.chart_facts.outputs.CHARTNAME }}-${{ job.helmbuild.steps.chart_facts.outputs.CHARTVERSION }}.tgz
+          path: 'charts/${{ job.helmbuild.steps.chart_facts.outputs.CHARTNAME }}-${{ job.helmbuild.steps.chart_facts.outputs.CHARTVERSION }}.tgz'
       - name: Commit files
         run: |
           ls -all
