@@ -29,14 +29,14 @@ jobs:
         uses: nolte/github-action/helm/build@master
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
+        id: chart_facts
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          path: "dist/${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz"
-          name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
-
+          path: "dist/${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz"
+          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
   helmdeploy:
-    name: Package Chart
+    name: Publish Chart
     runs-on: ubuntu-latest
     needs: helmbuild    
     steps:
@@ -47,8 +47,8 @@ jobs:
           repository: "nolte/helm-charts"     
       - uses: actions/download-artifact@v1
         with:
-          name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
-          path: 'charts/'
+          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
+          path: 'charts/${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz'
       - name: Commit files
         run: |
           ls -all
