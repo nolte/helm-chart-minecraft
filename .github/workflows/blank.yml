@@ -27,5 +27,4 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: chart
-          path: dist
+          pattern: "dist/*.tgz"
