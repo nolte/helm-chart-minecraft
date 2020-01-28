@@ -81,7 +81,7 @@ jobs:
           git add .
           git commit -m "Add changes" -a
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: nolte/github-push-action@feature/debugging
         env: 
           GITHUB_ACTOR: nolte
         with:
