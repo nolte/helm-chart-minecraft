@@ -61,6 +61,8 @@ jobs:
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
         id: chart_facts              
+        with:
+          path: "${{ GITHUB_WORKSPACE }}"
       - uses: actions/download-artifact@v1
         with:
           name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
