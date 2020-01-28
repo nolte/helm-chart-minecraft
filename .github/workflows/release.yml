@@ -23,4 +23,4 @@ jobs:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
           charts_repo_url: https://nolte.github.io/helm-charts
         with:
-          charts_dir: .
+          charts_dir: /github/workspace
