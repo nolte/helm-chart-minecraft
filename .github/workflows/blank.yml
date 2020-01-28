@@ -25,10 +25,8 @@ jobs:
         uses: nolte/github-action/helm/testing@master      
       - name: Run package
         uses: nolte/github-action/helm/build@master
-      - name: Define variables
-        run: echo "Tags are > ${PUSH_TAG_VERSION}"
-        env:
-          VERSION: 1.1.1
+      - name: Define Version Env Var
+        run: echo ::set-env name=VERSION::"1.1.1"
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
