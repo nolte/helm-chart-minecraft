@@ -54,18 +54,18 @@ jobs:
           repository: "nolte/helm-charts"
       - uses: actions/download-artifact@v1
         with:
-          path: "Chart.yaml"
+          path: ".chartinfo"
           name: "Chart.yaml"
       - name: debug files
         run: |
           ls -all
           pwd
-          cat Chart.yaml         
+          cat .chartinfo/Chart.yaml         
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
         id: chart_facts              
         with:
-          path: "Chart.yaml"
+          path: ".chartinfo/Chart.yaml"
       - uses: actions/download-artifact@v1
         with:
           name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
