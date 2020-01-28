@@ -59,7 +59,8 @@ jobs:
       - name: debug files
         run: |
           ls -all
-          pwd          
+          pwd
+          cat Chart.yaml         
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
         id: chart_facts              
