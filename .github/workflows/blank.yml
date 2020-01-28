@@ -59,7 +59,7 @@ jobs:
         id: chart_facts              
       - uses: actions/download-artifact@v1
         with:
-          name: ${{ .steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
+          name: ${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz
           path: 'charts/${{ steps.chart_facts.outputs.CHARTNAME }}-${{ steps.chart_facts.outputs.CHARTVERSION }}.tgz'
       - name: Commit files
         run: |
