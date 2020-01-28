@@ -89,4 +89,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.CR_TOKEN }}
-          repository: "nolte/helm-charts"
+          repository: "https://github.com/nolte/helm-charts"
