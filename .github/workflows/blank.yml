@@ -18,7 +18,7 @@ jobs:
       GOOS: linux
     steps:
       - name: Check out code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
             fetch-depth: 1
       - name: Run tests
@@ -32,4 +32,13 @@ jobs:
         with:
           path: "dist/${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz"
           name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
-          
+      - name: Check out Chart Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          repository: "https://github.com/nolte/helm-charts.git"     
+          path: '../charts'
+      - uses: actions/download-artifact@v1
+        with:
+          name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
+          path: '../charts/'
