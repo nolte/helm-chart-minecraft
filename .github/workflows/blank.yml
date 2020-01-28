@@ -22,7 +22,9 @@ jobs:
         with:
           fetch-depth: 1
       - name: Run tests
-        uses: nolte/github-action/helm/testing@master      
+        uses: nolte/github-action/helm/testing@master
+        with: 
+          path: "/github"      
       - name: Run package
         uses: nolte/github-action/helm/build@master
       - name: load chart facts
