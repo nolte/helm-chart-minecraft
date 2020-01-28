@@ -10,7 +10,7 @@ on:
     branches:
       - master
 jobs:
-  gofmt:
+  helmbuild:
     name: Package Chart
     runs-on: ubuntu-latest
     env:
@@ -34,16 +34,21 @@ jobs:
         with:
           path: "dist/${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz"
           name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
+
+  helmdeploy:
+    name: Package Chart
+    runs-on: ubuntu-latest
+    needs: helmbuild    
+    steps:
       - name: Check out Chart Repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
           repository: "nolte/helm-charts"     
-          path: 'charts'
       - uses: actions/download-artifact@v1
         with:
           name: ${{ env.CHARTNAME }}-${{ env.CHARTVERSION }}.tgz
-          path: 'charts/charts/'
+          path: 'charts/'
       - name: Commit files
         run: |
           ls -all
@@ -54,4 +59,3 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.CR_TOKEN }}
-     
