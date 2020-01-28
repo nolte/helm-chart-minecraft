@@ -26,11 +26,11 @@ jobs:
         with: 
           path: "/github"      
       - name: Run package
-        uses: nolte/github-action/helm/build@master
+        uses: nolte/github-action/helm/build@master     
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
-          path: "dist/**.tgz"
+          path: "dist"
           name: "dist"
   helmdeploy:
     name: Publish Chart
@@ -43,13 +43,16 @@ jobs:
           token: ${{ secrets.CR_TOKEN }}
           fetch-depth: 1
           repository: "nolte/helm-charts"
+      
       - uses: actions/download-artifact@v1
         with:
           name: "dist"
           path: '.chartdata'
+
       - name: copy chart archive
         run: |
-          mv .chartdata/**.tgz charts/
+          mv .chartdata/**.tgz charts/          
+
       - name: Commit files
         run: |
           rm -rf .chartinfo
@@ -59,3 +62,10 @@ jobs:
           git add .
           git commit -m "Add changes" -a
           git push origin master
+      #- name: Push changes
+      #  uses: nolte/github-push-action@feature/debugging
+      #  env: 
+      #    GITHUB_ACTOR: nolte
+      #  with:
+      #    github_token: ${{ secrets.CR_TOKEN }}
+      #    repository: "nolte/helm-charts"
