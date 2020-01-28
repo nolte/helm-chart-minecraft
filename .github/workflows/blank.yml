@@ -60,6 +60,7 @@ jobs:
         run: |
           ls -all
           pwd
+          ls -all .chartinfo
           cat .chartinfo/Chart.yaml         
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
@@ -73,7 +74,7 @@ jobs:
       - name: Commit files
         run: |
           ls -all
-          rm chart Chart.yaml
+          rm -rf .chartinfo
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
