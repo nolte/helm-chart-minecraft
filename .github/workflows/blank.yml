@@ -54,6 +54,10 @@ jobs:
         with:
           path: "Chart.yaml"
           name: "Chart.yaml"
+      - name: debug files
+        run: |
+          ls -all
+          pwd          
       - name: load chart facts
         uses: nolte/github-action/helm/set_facts@master
         id: chart_facts              
