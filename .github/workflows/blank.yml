@@ -50,6 +50,7 @@ jobs:
       - name: Check out Chart Repository
         uses: actions/checkout@v2
         with:
+          token: ${{ secrets.CR_TOKEN }}
           fetch-depth: 1
           repository: "nolte/helm-charts"
       - uses: actions/download-artifact@v1
@@ -80,10 +81,11 @@ jobs:
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Add changes" -a
-      - name: Push changes
-        uses: nolte/github-push-action@feature/debugging
-        env: 
-          GITHUB_ACTOR: nolte
-        with:
-          github_token: ${{ secrets.CR_TOKEN }}
-          repository: "nolte/helm-charts"
+          git push origin master
+      #- name: Push changes
+      #  uses: nolte/github-push-action@feature/debugging
+      #  env: 
+      #    GITHUB_ACTOR: nolte
+      #  with:
+      #    github_token: ${{ secrets.CR_TOKEN }}
+      #    repository: "nolte/helm-charts"
