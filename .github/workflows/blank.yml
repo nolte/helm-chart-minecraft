@@ -82,6 +82,8 @@ jobs:
           git commit -m "Add changes" -a
       - name: Push changes
         uses: ad-m/github-push-action@master
+        env: 
+          GITHUB_ACTOR: nolte
         with:
           github_token: ${{ secrets.CR_TOKEN }}
           repository: "nolte/helm-charts"
