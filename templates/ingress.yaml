@@ -1,0 +1,22 @@
+{{- if .Values.minecraftServer.dynmap.ingress.enabled  }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "minecraft.fullname" . }}-dynmap
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "minecraft.labels" . | nindent 4 }}
+  annotations:
+{{ toYaml .Values.minecraftServer.dynmap.ingress.ingress_annotations | indent 4 }}
+spec:
+  rules:
+  - host: {{ .Values.minecraftServer.dynmap.ingress.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "minecraft.fullname" . }}-dynmap
+          servicePort: {{ .Values.minecraftServer.dynmap.port }}
+  tls:
+{{ toYaml .Values.minecraftServer.dynmap.ingress.tls | indent 4 }}
+{{- end -}}

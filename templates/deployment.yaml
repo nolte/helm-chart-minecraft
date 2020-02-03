@@ -176,6 +176,11 @@ spec:
         - name: minecraft
           containerPort: 25565
           protocol: TCP
+        {{- if .Values.minecraftServer.dynmap.enabled }}
+        - name: dynmap
+          containerPort: {{ .Values.minecraftServer.dynmap.port }}
+          protocol: TCP
+        {{- end }}
         {{- if .Values.minecraftServer.rcon.enabled }}
         - name: rcon
           containerPort: {{ .Values.minecraftServer.rcon.port }}
