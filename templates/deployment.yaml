@@ -186,6 +186,9 @@ spec:
           containerPort: {{ .Values.minecraftServer.rcon.port }}
           protocol: TCP
         {{- end }}
+      {{- if .Values.minecraftServer.extraPorts }}
+{{ .Values.minecraftServer.extraPorts | toYaml | indent 8 }}
+      {{- end }}
         volumeMounts:
         - name: datadir
           mountPath: /data
