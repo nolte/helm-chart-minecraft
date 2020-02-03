@@ -189,6 +189,9 @@ spec:
         volumeMounts:
         - name: datadir
           mountPath: /data
+      {{- if .Values.persistence.extraVolumeMounts }}
+{{ .Values.persistence.extraVolumeMounts | toYaml | indent 8 }}
+      {{- end }}
       volumes:
       - name: datadir
       {{- if .Values.persistence.dataDir.enabled }}
@@ -201,6 +204,11 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
+
+      {{- if .Values.persistence.extraVolumes }}
+{{ toYaml .Values.persistence.extraVolumes | indent 6 }}
+      {{- end }}
+
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
