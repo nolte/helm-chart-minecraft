@@ -1,0 +1,20 @@
+{{- if default "" .Values.minecraftServer.codeserver.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ template "minecraft.fullname" . }}-codeserver"
+  labels:
+    {{- include "minecraft.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.minecraftServer.codeserver.serviceType }}
+  ports:
+  - name: codeserver
+    port: {{ .Values.minecraftServer.codeserver.port }}
+    {{- if .Values.minecraftServer.codeserver.nodePort }}
+    nodePort: {{ .Values.minecraftServer.codeserver.nodePort }}
+    {{- end }}
+    targetPort: codeserver
+    protocol: TCP
+  selector:
+    {{- include "minecraft.selectorLabels" . | nindent 4 }}
+{{- end }}

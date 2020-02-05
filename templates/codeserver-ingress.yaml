@@ -1,0 +1,22 @@
+{{- if .Values.minecraftServer.codeserver.ingress.enabled  }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "minecraft.fullname" . }}-codeserver
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "minecraft.labels" . | nindent 4 }}
+  annotations:
+{{ toYaml .Values.minecraftServer.codeserver.ingress.ingress_annotations | indent 4 }}
+spec:
+  rules:
+  - host: {{ .Values.minecraftServer.codeserver.ingress.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ template "minecraft.fullname" . }}-codeserver
+          servicePort: {{ .Values.minecraftServer.codeserver.port }}
+  tls:
+{{ toYaml .Values.minecraftServer.codeserver.ingress.tls | indent 4 }}
+{{- end -}}

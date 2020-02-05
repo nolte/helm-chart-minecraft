@@ -29,6 +29,18 @@ spec:
 {{ .Values.extraContainers | toYaml | indent 6 }}
       {{- end }}
 
+{{- if .Values.minecraftServer.codeserver.enabled }}
+      - name: code-server
+        image: codercom/code-server
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: datadir
+          mountPath: /home/coder/project
+        ports:
+          - name: codeserver
+            containerPort: {{ .Values.minecraftServer.codeserver.port }}
+            protocol: TCP
+{{- end }}
       - name: {{ template "minecraft.fullname" . }}
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: Always
