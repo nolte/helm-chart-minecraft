@@ -41,3 +41,12 @@ Selector labels
 app.kubernetes.io/name: {{ include "minecraft.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
+
+{{/* Create the name of minecraft service account to use */}}
+{{- define "minecraft.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "minecraft.fullname" .) .Values.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.serviceAccount.name }}
+{{- end -}}
+{{- end -}}

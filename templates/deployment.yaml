@@ -14,10 +14,21 @@ spec:
       labels:
         {{- include "minecraft.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ template "minecraft.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
         fsGroup: {{ .Values.securityContext.fsGroup }}
+
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+{{ .Values.extraInitContainers | toYaml | indent 6 }}
+      {{- end }}
       containers:
+      {{- if .Values.extraContainers }}
+{{ .Values.extraContainers | toYaml | indent 6 }}
+      {{- end }}
+
       - name: {{ template "minecraft.fullname" . }}
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: Always

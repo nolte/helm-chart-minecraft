@@ -1,6 +1,6 @@
 # ref: https://hub.docker.com/r/itzg/minecraft-server/
 image: itzg/minecraft-server
-imageTag: latest
+imageTag: 20200129
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -192,3 +192,14 @@ persistence:
     # Set this to false if you don't care to persist state between restarts.
     enabled: true
     Size: 1Gi
+
+
+serviceAccount:
+  enabled: false
+  create: false
+  automountServiceAccountToken: true
+
+
+extraInitContainers: {}
+
+extraContainers: {}

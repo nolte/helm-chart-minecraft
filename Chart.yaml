@@ -1,7 +1,7 @@
 apiVersion: v1
 name: minecraft
-version: 1.1.2
-appVersion: 1.14.4
+version: 1.2.0
+appVersion: 20200129
 home: https://minecraft.net/
 description: Minecraft server
 keywords:
