@@ -139,6 +139,7 @@ minecraftServer:
     port: 9225
     servicemonitor:
       enabled: false
+      labels: {}
   rcon:
     # If you enable this, make SURE to change your password below.
     enabled: false
