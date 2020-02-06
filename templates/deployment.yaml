@@ -210,8 +210,8 @@ spec:
           protocol: TCP
         {{- end }}
         {{- if .Values.minecraftServer.prometheus.enabled }}
-        - name: rcon
-          containerPort: {{ .Values.minecraftServer.rcon.port }}
+        - name: prometheus
+          containerPort: {{ .Values.minecraftServer.prometheus.port }}
           protocol: TCP
         {{- end }}
       {{- if .Values.minecraftServer.extraPorts }}
