@@ -56,5 +56,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Promethes servicemonitor labels
 */}}
 {{- define "minecraft.prometheus.servicemonitor.labels" -}}
+{{- if .Values.minecraftServer.prometheus.servicemonitor.labels -}}
 {{ .Values.minecraftServer.prometheus.servicemonitor.labels | toYaml }}
+{{- end -}}
 {{- end -}}
