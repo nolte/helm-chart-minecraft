@@ -1,8 +1,8 @@
 {{- if default "" .Values.minecraftServer.prometheus.servicemonitor.enabled }}
-apiVersion: v1
+apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: "{{ template "minecraft.fullname" . }}-prometheus"
+  name: "{{ template "minecraft.fullname" . }}"
   labels:
     {{- include "minecraft.labels" . | nindent 4 }}
     {{- include "minecraft.prometheus.servicemonitor.labels" . | nindent 4 }}
