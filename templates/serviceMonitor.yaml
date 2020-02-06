@@ -15,5 +15,5 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-    {{- include "minecraft.selectorLabels" . | nindent 4 }}
+    {{- include "minecraft.selectorLabels" . | nindent 6 }}
 {{- end }}
