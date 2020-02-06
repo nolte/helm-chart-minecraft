@@ -1,0 +1,19 @@
+{{- if default "" .Values.minecraftServer.prometheus.servicemonitor.enabled }}
+apiVersion: v1
+kind: ServiceMonitor
+metadata:
+  name: "{{ template "minecraft.fullname" . }}-prometheus"
+  labels:
+    {{- include "minecraft.labels" . | nindent 4 }}
+    {{- include "minecraft.prometheus.servicemonitor.labels" . | nindent 4 }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: prometheus
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+    {{- include "minecraft.selectorLabels" . | nindent 4 }}
+{{- end }}

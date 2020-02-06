@@ -137,6 +137,8 @@ minecraftServer:
   prometheus:
     enabled: false
     port: 9225
+    servicemonitor:
+      enabled: false
   rcon:
     # If you enable this, make SURE to change your password below.
     enabled: false
