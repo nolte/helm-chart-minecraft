@@ -6,6 +6,6 @@ minecraftServer:
     port: 9225
     servicemonitor:
       enabled: true
-      labels: {}
+      labels:
         prometheus: test
 # fix in place and rebased
