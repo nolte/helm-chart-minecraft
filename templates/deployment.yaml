@@ -25,22 +25,6 @@ spec:
 {{ .Values.extraInitContainers | toYaml | indent 6 }}
       {{- end }}
       containers:
-      {{- if .Values.extraContainers }}
-{{ .Values.extraContainers | toYaml | indent 6 }}
-      {{- end }}
-
-{{- if .Values.minecraftServer.codeserver.enabled }}
-      - name: code-server
-        image: codercom/code-server
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: datadir
-          mountPath: /home/coder/project
-        ports:
-          - name: codeserver
-            containerPort: {{ .Values.minecraftServer.codeserver.port }}
-            protocol: TCP
-{{- end }}
       - name: {{ template "minecraft.fullname" . }}
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: Always
@@ -223,6 +207,22 @@ spec:
       {{- if .Values.persistence.extraVolumeMounts }}
 {{ .Values.persistence.extraVolumeMounts | toYaml | indent 8 }}
       {{- end }}
+      {{- if .Values.extraContainers }}
+{{ .Values.extraContainers | toYaml | indent 6 }}
+      {{- end }}
+
+{{- if .Values.minecraftServer.codeserver.enabled }}
+      - name: code-server
+        image: codercom/code-server
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: datadir
+          mountPath: /home/coder/project
+        ports:
+          - name: codeserver
+            containerPort: {{ .Values.minecraftServer.codeserver.port }}
+            protocol: TCP
+{{- end }}
       volumes:
       - name: datadir
       {{- if .Values.persistence.dataDir.enabled }}
